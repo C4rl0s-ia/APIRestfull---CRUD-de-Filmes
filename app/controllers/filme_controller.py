@@ -22,6 +22,15 @@ def criar_filme(filme: FilmeCreate, db: Session = Depends(get_db)):
 def listar_filmes(db: Session = Depends(get_db)):
     return filme_service.listar(db)
 
+@router.get("/filmes/{filme_id}")
+def obter_filme(filme_id: int, db: Session = Depends(get_db)):
+    filme = filme_service.obter(db, filme_id)
+    
+    if not filme:
+        raise HTTPException(status_code=404, detail="Filme não encontrado")
+    
+    return filme
+
 @router.delete("/filmes/{filme_id}")
 def deletar_filme(filme_id: int, db: Session = Depends(get_db)):
     filme = filme_service.deletar(db, filme_id)

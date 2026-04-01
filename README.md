@@ -5,6 +5,7 @@
 Este projeto é uma API REST para gerenciar filmes com as operações básicas de CRUD:
 - criar filme
 - listar filmes
+- obter filme por ID
 - atualizar filme
 - deletar filme
 
@@ -81,17 +82,26 @@ http://127.0.0.1:8000/docs
 - Rota: `/filmes`
 - Retorna uma lista de filmes cadastrados.
 
+### Obter filme por ID
+
+- Método: `GET`
+- Rota: `/filmes/{filme_id}`
+- Retorna os dados do filme identificado pelo ID.
+- Retorna `404 Not Found` se o filme não existir.
+
 ### Atualizar filme
 
 - Método: `PUT`
 - Rota: `/filmes/{filme_id}`
 - Substitui os dados do filme existente pelo conteúdo enviado.
+- Valida se o filme existe antes de aplicar a atualização e retorna `404` quando não encontrado.
 
 ### Deletar filme
 
 - Método: `DELETE`
 - Rota: `/filmes/{filme_id}`
 - Remove o registro do filme com o ID informado.
+- Retorna `404` se o filme não existir.
 
 ## Modelagem do dado
 
@@ -115,9 +125,10 @@ O banco é criado automaticamente ao iniciar a aplicação por meio de `Base.met
 
 ## Tratamento de erros
 
-- `POST /filmes` e `PUT /filmes/{filme_id}` validam os dados de entrada.
+- `GET /filmes/{filme_id}` retorna `404` quando o filme não é encontrado.
+- `PUT /filmes/{filme_id}` valida se o filme existe antes de atualizar e retorna `404` quando não encontrado.
 - `DELETE /filmes/{filme_id}` retorna `404` quando o filme não é encontrado.
-- `PUT /filmes/{filme_id}` retorna `404` quando o filme não é encontrado.
+- `POST /filmes` e `PUT /filmes/{filme_id}` validam os dados de entrada.
 
 ## Imagens e exemplos visuais
 

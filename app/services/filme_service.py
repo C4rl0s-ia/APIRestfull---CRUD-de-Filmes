@@ -6,6 +6,9 @@ def criar(db, filme):
 def listar(db):
     return filme_repository.listar_filmes(db)
 
+def obter(db, filme_id):
+    return filme_repository.obter_filme(db, filme_id)
+
 def deletar(db, filme_id):
     return filme_repository.deletar_filme(db, filme_id)
 

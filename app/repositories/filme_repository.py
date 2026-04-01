@@ -11,6 +11,9 @@ def criar_filme(db: Session, filme):
 def listar_filmes(db: Session):
     return db.query(Filme).all()
 
+def obter_filme (db:Session, filme_id: int):
+    return db.query(Filme).get(filme_id)
+
 def deletar_filme(db: Session, filme_id: int):
     filme = db.query(Filme).filter(Filme.id == filme_id).first()
     if filme:
