@@ -117,7 +117,7 @@ O banco é criado automaticamente ao iniciar a aplicação por meio de `Base.met
 
 - `POST /filmes` e `PUT /filmes/{filme_id}` validam os dados de entrada.
 - `DELETE /filmes/{filme_id}` retorna `404` quando o filme não é encontrado.
-- O endpoint `PUT /filmes/{filme_id}` retorna `null` se o filme não existir, pois a lógica atual não lança uma exceção específica para esse caso.
+- `PUT /filmes/{filme_id}` retorna `404` quando o filme não é encontrado.
 
 ## Imagens e exemplos visuais
 
