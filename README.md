@@ -1,80 +1,70 @@
-# API de Cadastro de Filmes
+﻿# API de Cadastro de Filmes
 
-## Descrição
+## Visão geral
 
-Este projeto foi desenvolvido com o objetivo de criar uma API REST para gerenciamento de filmes, utilizando Python e FastAPI.
+Este projeto é uma API REST para gerenciar filmes com as operações básicas de CRUD:
+- criar filme
+- listar filmes
+- atualizar filme
+- deletar filme
 
-A aplicação permite realizar operações de cadastro, listagem, atualização e exclusão de filmes, seguindo uma arquitetura em camadas e boas práticas de desenvolvimento.
+A aplicação foi escrita em Python usando FastAPI e salva os dados em um banco SQLite local.
 
----
+## Estrutura do projeto
 
-## Tecnologias Utilizadas
+A arquitetura segue a separação em camadas:
 
-* Python
-* FastAPI
-* SQLAlchemy
-* SQLite
-* Uvicorn
+- `app/controllers` → define rotas HTTP e trata requisições
+- `app/services` → coordena a lógica de negócio
+- `app/repositories` → acessa e manipula o banco de dados
+- `app/models` → define a estrutura da tabela de filmes
+- `app/schemas` → valida dados de entrada com Pydantic
+- `app/database` → configura a conexão com SQLite
 
----
+## Tecnologias
 
-## Arquitetura do Projeto
+- Python
+- FastAPI
+- SQLAlchemy
+- SQLite
+- Uvicorn
 
-O projeto foi estruturado em camadas:
+## Requisitos
 
-* **Controller** → recebe requisições HTTP
-* **Service** → lógica de negócio
-* **Repository** → acesso ao banco de dados
-* **Model** → estrutura da tabela
-* **Schema** → validação de dados
+- Python 3.8+
+- Dependências do projeto:
+  - fastapi
+  - uvicorn
+  - sqlalchemy
+  - pydantic
 
----
+## Como executar
 
-## Como Executar o Projeto
-
-### 1. Instalar dependências
+1. Instale as dependências:
 
 ```bash
 python -m pip install fastapi uvicorn sqlalchemy pydantic
 ```
 
-### 2. Executar o servidor
+2. Rode o servidor:
 
 ```bash
 python -m uvicorn app.main:app --reload
 ```
 
-### 3. Acessar a API
-
-Abra no navegador:
+3. Acesse a documentação automática:
 
 ```
 http://127.0.0.1:8000/docs
 ```
 
----
+## Endpoints disponíveis
 
-## Funcionalidades (CRUD)
+### Criar filme
 
-### Criar Filme
-
-* **POST /filmes**
-
-### Listar Filmes
-
-* **GET /filmes**
-
-### Atualizar Filme
-
-* **PUT /filmes/{filme_id}**
-
-### Deletar Filme
-
-* **DELETE /filmes/{filme_id}**
-
----
-
-## Exemplo de Requisição
+- Método: `POST`
+- Rota: `/filmes`
+- Corpo da requisição (JSON):
 
 ```json
 {
@@ -85,60 +75,98 @@ http://127.0.0.1:8000/docs
 }
 ```
 
-## Testes da API
+### Listar filmes
 
+- Método: `GET`
+- Rota: `/filmes`
+- Retorna uma lista de filmes cadastrados.
 
-### Criando um filme (POST)
+### Atualizar filme
 
+- Método: `PUT`
+- Rota: `/filmes/{filme_id}`
+- Substitui os dados do filme existente pelo conteúdo enviado.
 
-### Listando filmes (GET)
+### Deletar filme
 
+- Método: `DELETE`
+- Rota: `/filmes/{filme_id}`
+- Remove o registro do filme com o ID informado.
 
-### Atualizando filme (PUT)
+## Modelagem do dado
 
+O modelo de filme usa os campos:
 
-### Deletando filme (DELETE)
+- `id`: inteiro, chave primária
+- `titulo`: string
+- `genero`: string
+- `ano`: inteiro
+- `nota`: inteiro (0 a 10)
 
+A validação do campo `nota` é aplicada no schema do Pydantic em `app/schemas/filme_schema.py`.
 
-### Erro 404
+## Banco de dados
 
+- Banco: SQLite
+- Arquivo gerado: `filmes.db`
+- Tabela: `filmes`
 
----
+O banco é criado automaticamente ao iniciar a aplicação por meio de `Base.metadata.create_all(bind=engine)` em `app/main.py`.
 
-## Validações
+## Tratamento de erros
 
-* A nota do filme deve estar entre **0 e 10**
-* Retorna erro **404** caso o filme não seja encontrado
+- `POST /filmes` e `PUT /filmes/{filme_id}` validam os dados de entrada.
+- `DELETE /filmes/{filme_id}` retorna `404` quando o filme não é encontrado.
+- O endpoint `PUT /filmes/{filme_id}` retorna `null` se o filme não existir, pois a lógica atual não lança uma exceção específica para esse caso.
 
----
+## Imagens e exemplos visuais
 
-## Objetivo do Projeto
+A pasta `images/` contém capturas de tela das operações da API e exemplos de respostas:
 
-Este projeto foi desenvolvido como atividade da disciplina de Laboratório de Desenvolvimento de Software, com o objetivo de aplicar conceitos como:
+- `Criando filme(POST).png`
+- `Criando-filme-_POST-ERROR_.png`
+- `Listando filme(GET).png`
+- `Atualizando-filme_PUT_.png`
+- `Deletando-filme_DELETE_.png`
+- `Deletando-filme_DELETE-ERROR_.png`
+- `image.png`
 
-* Desenvolvimento de APIs REST
-* Arquitetura em camadas
-* Integração com banco de dados
-* Boas práticas de programação
+### Galeria de imagens
 
----
+<img src="images/Criando filme(POST).png" alt="Criando filme POST" width="600">
+
+<img src="images/Listando filme(GET).png" alt="Listando filmes GET" width="600">
+
+<img src="images/Atualizando-filme_PUT_.png" alt="Atualizando filme PUT" width="600">
+
+<img src="images/Deletando-filme_DELETE_.png" alt="Deletando filme DELETE" width="600">
+
+<img src="images/Criando-filme-_POST-ERROR_.png" alt="Erro ao criar filme POST" width="600">
+
+<img src="images/Deletando-filme_DELETE-ERROR_.png" alt="Erro ao deletar filme DELETE" width="600">
+
+## Observações
+
+- A API não possui autenticação.
+- O foco é demonstrar o fluxo básico de CRUD com FastAPI e SQLAlchemy.
+- Se você quiser, posso também ajudar a melhorar o tratamento de erros e o endpoint de atualização.
 
 ## Autores
 
 Projeto desenvolvido por:
 
-* Bruno Ferreira da Costa - 1240114845
-* Bruno Lourenço Queiroz da Silva - 1240120417
-* Carlos Augusto da Silva Souza - 1240101684
-* Eduardo Rodrigues Gomes - 1240208119
-* Gabriel Ribeiro - 1240113883
-* Gabriel Vasconcelos - 1210102929
-* Guilherme Ribeiro Alves - 1240200753
-* Jamilly Dias Deodato - 1240205458
-* João Vitor Hermes Fonseca Coelho - 1240112457
-* João Victor Pereira dos Reis - 1240111812
-* Lucas Rodrigues Correia - 1240105219
-* Matheus de Souza - 1240100507
-* Mauricio Gonçalves Simões Júnior - 1230103599
-* Rafael Matias Alonso Carvalhal - 1240107511
-* Victor Gusmão Moreira Vieira - 1260114525  
+- Bruno Ferreira da Costa - 1240114845
+- Bruno Lourenço Queiroz da Silva - 1240120417
+- Carlos Augusto da Silva Souza - 1240101684
+- Eduardo Rodrigues Gomes - 1240208119
+- Gabriel Ribeiro - 1240113883
+- Gabriel Vasconcelos - 1210102929
+- Guilherme Ribeiro Alves - 1240200753
+- Jamilly Dias Deodato - 1240205458
+- João Vitor Hermes Fonseca Coelho - 1240112457
+- João Victor Pereira dos Reis - 1240111812
+- Lucas Rodrigues Correia - 1240105219
+- Matheus de Souza - 1240100507
+- Mauricio Gonçalves Simões Júnior - 1230103599
+- Rafael Matias Alonso Carvalhal - 1240107511
+- Victor Gusmão Moreira Vieira - 1260114525
