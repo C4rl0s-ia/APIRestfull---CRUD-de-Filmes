@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    container_name: filmes_api
+    environment:
+      DATABASE_URL: sqlite:///./filmes.db
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./filmes.db:/app/filmes.db
+    command: sh -c "touch /app/filmes.db && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    restart: unless-stopped
+
+  sqlite:
+    image: keinos/sqlite3:latest
+    container_name: filmes_sqlite
+    volumes:
+      - ./filmes.db:/data/filmes.db
+    entrypoint: ["/bin/sh", "-c", "tail -f /dev/null"]
+    restart: unless-stopped

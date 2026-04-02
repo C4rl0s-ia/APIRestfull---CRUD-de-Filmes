@@ -21,6 +21,8 @@ A arquitetura segue a separação em camadas:
 - `app/models` → define a estrutura da tabela de filmes
 - `app/schemas` → valida dados de entrada com Pydantic
 - `app/database` → configura a conexão com SQLite
+- `app/Dockerfile` → define a imagem Docker da aplicação FastAPI
+- `docker-compose.yml` → orquestra os serviços da aplicação e do ambiente SQLite para testes
 
 ## Tecnologias
 
@@ -29,6 +31,7 @@ A arquitetura segue a separação em camadas:
 - SQLAlchemy
 - SQLite
 - Uvicorn
+- Docker
 
 ## Requisitos
 
@@ -41,6 +44,22 @@ A arquitetura segue a separação em camadas:
 
 ## Como executar
 
+### Opção 1 (recomendada): Docker Compose
+
+1. Suba os serviços:
+
+```bash
+docker compose up --build
+```
+
+2. Acesse a documentação automática:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+### Opção 2: Execução local (sem Docker)
+
 1. Instale as dependências:
 
 ```bash
@@ -50,7 +69,7 @@ python -m pip install fastapi uvicorn sqlalchemy pydantic
 2. Rode o servidor:
 
 ```bash
-python -m uvicorn app.main:app --reload
+python -m uvicorn app.main:app
 ```
 
 3. Acesse a documentação automática:
