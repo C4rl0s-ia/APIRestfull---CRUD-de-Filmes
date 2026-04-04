@@ -60,19 +60,32 @@ http://127.0.0.1:8000/docs
 
 ### Opção 2: Execução local (sem Docker)
 
-1. Instale as dependências:
+1. Crie e Ativa o ambiente:
+
+
+```bash
+# No Windons
+python -m venv .venv
+venv\Scripts\activate
+
+# No Linux\Mac
+python3 -m venv .venv
+source venv\bin\acitvate
+```
+
+2. Instale as dependências:
 
 ```bash
 python -m pip install fastapi uvicorn sqlalchemy pydantic
 ```
 
-2. Rode o servidor:
+3. Rode o servidor:
 
 ```bash
 python -m uvicorn app.main:app
 ```
 
-3. Acesse a documentação automática:
+4. Acesse a documentação automática:
 
 ```
 http://127.0.0.1:8000/docs
