@@ -1,4 +1,4 @@
-﻿# API de Cadastro de Filmes
+﻿﻿# API de Cadastro de Filmes
 
 ## Visão geral
 
@@ -27,20 +27,20 @@ A arquitetura segue a separação em camadas:
 ## Tecnologias
 
 - Python
-- FastAPI
-- SQLAlchemy
+- FastAPI 
+- SQLAlchemy 
 - SQLite
-- Uvicorn
+- Uvicorn 
 - Docker
 
 ## Requisitos
 
 - Python 3.8+
 - Dependências do projeto:
-  - fastapi
-  - uvicorn
-  - sqlalchemy
-  - pydantic
+  - fastapi 0.135.3
+  - uvicorn 0.43.0
+  - sqlalchemy 2.0.49
+  - pydantic 2.12.5
 
 ## Como executar
 
@@ -76,7 +76,7 @@ source venv\bin\acitvate
 2. Instale as dependências:
 
 ```bash
-python -m pip install fastapi uvicorn sqlalchemy pydantic
+pip install -r requirements.txt
 ```
 
 3. Rode o servidor:
