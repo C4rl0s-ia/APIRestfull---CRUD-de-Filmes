@@ -82,7 +82,7 @@ pip install -r requirements.txt
 3. Rode o servidor:
 
 ```bash
-python -m uvicorn app.main:app
+python run.py
 ```
 
 4. Acesse a documentação automática:
