@@ -192,7 +192,6 @@ A pasta `images/` contém capturas de tela das operações da API e exemplos de 
 
 - A API não possui autenticação.
 - O foco é demonstrar o fluxo básico de CRUD com FastAPI e SQLAlchemy.
-- Se você quiser, posso também ajudar a melhorar o tratamento de erros e o endpoint de atualização.
 
 ## Autores
 
