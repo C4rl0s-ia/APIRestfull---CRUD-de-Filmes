@@ -156,14 +156,14 @@ export default function App() {
   }
 
   const filmesFiltrados = filmes.filter((filme) =>
-  filme.titulo.toLowerCase().includes(busca.toLowerCase())
+    filme.titulo.toLowerCase().includes(busca.toLowerCase())
   );
 
   const empty = !loading && filmesFiltrados.length === 0;
 
   const formTitle = editingId
-  ? `Editando: ${formData.titulo || "filme"}`
-  : "Novo filme";
+    ? `Editando: ${formData.titulo || "filme"}`
+    : "Novo filme";
 
   return (
     <div className="page-shell">
@@ -172,7 +172,7 @@ export default function App() {
           <p className="eyebrow">Projeto da faculdade</p>
           <h1>Painel de filmes com cadastro, edicao e exclusao</h1>
           <p className="hero__text">
-            Uma interface React com Vite para consumir a API RESTful e demonstrar o CRUD completo.
+            Uma interface React com Vite para consuming a API RESTful e demonstrar o CRUD completo.
           </p>
         </div>
 
@@ -279,13 +279,25 @@ export default function App() {
             </button>
           </div>
 
-          <div style={{ marginBottom: "20px" }}>
+          {/* PARTE ALTERADA: Campo com a lupa e o botão de limpar condicional */}
+          <div style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
             <input
               type="text"
-              placeholder="Buscar filme pelo título..."
+              placeholder="🔍 Buscar filme pelo título..."
               value={busca}
               onChange={(e) => setBusca(e.target.value)}
+              style={{ flex: 1 }}
             />
+            {busca && (
+              <button 
+                type="button" 
+                className="btn btn-secondary" 
+                onClick={() => setBusca("")}
+                style={{ padding: "0 15px" }}
+              >
+                Limpar
+              </button>
+            )}
           </div>
 
           {loading && <div className="state-message">Carregando filmes...</div>}
