@@ -13,10 +13,10 @@ export default function App() {
           
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Dashboard />} />
-            {/* Adicione outras rotas protegidas aqui se necessário */}
+            {}
           </Route>
           
-          {/* Rota coringa: redireciona para a home caso a URL não exista */}
+          {}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

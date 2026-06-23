@@ -10,13 +10,13 @@ def registrar_usuario(db: Session, username: str, password: str):
         raise HTTPException(status_code=400, detail="Usuário já registrado")
     
     hashed_password = security.get_password_hash(password)
-    novo_usuario = Usuario(username=username, password_hash=hashed_password)
+    novo_usuario = Usuario(username=username, hashed_password=hashed_password)
     return usuario_repository.criar_usuario(db, novo_usuario)
 
 def autenticar_usuario(db: Session, username: str, password: str):
     user = usuario_repository.obter_por_username(db, username)
     if not user:
         return False
-    if not security.verify_password(password, user.password_hash):
+    if not security.verify_password(password, user.hashed_password):
         return False
     return user

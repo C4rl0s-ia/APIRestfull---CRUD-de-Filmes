@@ -81,7 +81,7 @@ npm run dev
 O banco local (`filmes.db`) possui duas tabelas principais:
 
 1. **`usuarios`**: 
-   - `id` (PK), `username` (Único), `password_hash` (Senhas criptografadas).
+   - `id` (PK), `username` (Único), `hashed_password` (Senhas criptografadas).
 2. **`filmes`**:
    - `id` (PK), `titulo`, `genero`, `ano`, `nota` (0.0 a 10.0), `poster`, `usuario` (Dono do registro), `data_cadastro`.
 

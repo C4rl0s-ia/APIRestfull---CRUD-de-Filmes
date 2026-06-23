@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
       formData.append('username', username);
       formData.append('password', password);
 
-      const response = await fetch('/auth/login', {
+      const response = await fetch('http://127.0.0.1:8000/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, password) => {
     try {
-      const response = await fetch('/auth/register', {
+      const response = await fetch('http://127.0.0.1:8000/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
