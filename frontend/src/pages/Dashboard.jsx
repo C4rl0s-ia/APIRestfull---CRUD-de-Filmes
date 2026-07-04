@@ -152,7 +152,10 @@ export const Dashboard = () => {
     searchTimeoutRef.current = setTimeout(async () => {
       setIsSearching(true);
       try {
-        const response = await fetch(`${TMDB_SEARCH_URL}?query=${encodeURIComponent(searchQuery)}`);
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${TMDB_SEARCH_URL}?query=${encodeURIComponent(searchQuery)}`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
         if (response.ok) {
           const data = await response.json();
           setSearchResults(data);
